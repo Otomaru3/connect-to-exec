@@ -1,13 +1,13 @@
 
 ;------------------------------------------
 ;                Ver
-;        Ver 4.66 ‚Ìƒwƒ‹ƒv‚æ‚è
+;        Ver 4.66 ã®ãƒ˜ãƒ«ãƒ—ã‚ˆã‚Š
 ;------------------------------------------
 ;setsync	N/A
-;until	ƒo[ƒWƒ‡ƒ“4.56ˆÈ~ (g—p‚µ‚È‚¢)
+;until	ãƒãƒ¼ã‚¸ãƒ§ãƒ³4.56ä»¥é™ (ä½¿ç”¨ã—ãªã„)
 ;wile N/A
 ;fileopen	N/A
-;fileread	ƒo[ƒWƒ‡ƒ“4.48ˆÈ~ ig—p‚µ‚È‚¢j
+;fileread	ãƒãƒ¼ã‚¸ãƒ§ãƒ³4.48ä»¥é™ ï¼ˆä½¿ç”¨ã—ãªã„ï¼‰
 ;yesnobox	N/A
 ;if	N/A
 ;flushrecv	N/A
@@ -35,18 +35,18 @@
 ;ExecComm; S VAL FullPrompt
 ;------------------------------------------
 ;------------------------------------------
-;             Šî–{İ’è
+;             åŸºæœ¬è¨­å®š
 ;------------------------------------------
 MacroName = "Connect2Exec"
 
 getdate Gdatetime '_%Y%m%d-%H%M%S'
 getdate Gdate '_%Y%m%d'
 
-;ƒVƒXƒeƒ€•Ï” Timeout
+;ã‚·ã‚¹ãƒ†ãƒ å¤‰æ•° Timeout
 Default_timeout = 600
 timeout = Default_timeout
 
-;ƒvƒƒ“ƒvƒg’è‹`
+;ãƒ—ãƒ­ãƒ³ãƒ—ãƒˆå®šç¾©
 LoginPrompt = 'Username:'
 LoginPrompt2 = 'login:'
 PasswordPrompt = 'Password:'
@@ -54,13 +54,13 @@ UserPrompt = '>'
 EnPrompt = '#'
 ERR = "%"
 
-;ƒ}ƒNƒ‚ª‚ ‚éƒfƒBƒŒƒNƒgƒŠ
+;ãƒã‚¯ãƒ­ãŒã‚ã‚‹ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒª
 getdir CurDir
 
-;ƒƒO‚ğ•Û‘¶‚·‚éƒfƒBƒŒƒNƒgƒŠƒvƒŒƒtƒBƒNƒX
+;ãƒ­ã‚°ã‚’ä¿å­˜ã™ã‚‹ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªãƒ—ãƒ¬ãƒ•ã‚£ã‚¯ã‚¹
 LogdirPref = "log"
 
-;ƒzƒXƒgˆê——
+;ãƒ›ã‚¹ãƒˆä¸€è¦§
 HostList = "HostList.csv"
 
 ;Command
@@ -81,15 +81,15 @@ TtIni = "teraterm.ini"
 ;------------------------------------------
 i = 1
 
-;yesnobox "Connect2Exec‚ğÀs‚µ‚Ü‚·‚©H" MacroName
+;yesnobox "Connect2Execã‚’å®Ÿè¡Œã—ã¾ã™ã‹ï¼Ÿ" MacroName
 ;if result = 0 end
 
-;inputbox ¨ logprefix 
-inputbox "Log Prefix‚ğ“ü—Í‚µ‚Ä‚­‚¾‚³‚¢Bu_v‚ğ‚Â‚¯‚½‚Ù‚¤‚ª‚æ‚¢‚©‚àB" "LogPrefix" 0
+;inputbox â†’ logprefix 
+inputbox "Log Prefixã‚’å…¥åŠ›ã—ã¦ãã ã•ã„ã€‚ã€Œ_ã€ã‚’ã¤ã‘ãŸã»ã†ãŒã‚ˆã„ã‹ã‚‚ã€‚" "LogPrefix" 0
 LogPrefix = inputstr
 
 
-;ƒzƒXƒgˆê——
+;ãƒ›ã‚¹ãƒˆä¸€è¦§
 Cur1 = HostList
 HostList = CurDir
 strconcat HostList "\"
@@ -103,19 +103,19 @@ strconcat CommList "\"
 strconcat CommList Cur1
 ;messagebox CommList "CommList" 0
 
-;ƒƒMƒ“ƒOƒtƒHƒ‹ƒ_
+;ãƒ­ã‚®ãƒ³ã‚°ãƒ•ã‚©ãƒ«ãƒ€
 Logdir = CurDir
 strconcat Logdir '\'
 strconcat Logdir LogPrefix
 strconcat Logdir LogdirPref
 strconcat Logdir Gdatetime
-;ƒtƒHƒ‹ƒ_ì¬
+;ãƒ•ã‚©ãƒ«ãƒ€ä½œæˆ
 EXECMD = 'cmd /c md '
 strconcat EXECMD Logdir
 exec EXECMD
 strconcat Logdir "\"
 
-;Summaryƒtƒ@ƒCƒ‹
+;Summaryãƒ•ã‚¡ã‚¤ãƒ«
 Summary = Logdir
 strconcat Summary LogPrefix
 strconcat Summary SummaryPrefix
@@ -129,39 +129,39 @@ strconcat WrResult #13#10
 call WriteSumm
 
 
-;inputbox ¨ inputstr 
-;inputbox "ƒ†[ƒU–¼‚ğ“ü—Í‚µ‚Ä‚­‚¾‚³‚¢" "Username" 0
+;inputbox â†’ inputstr 
+;inputbox "ãƒ¦ãƒ¼ã‚¶åã‚’å…¥åŠ›ã—ã¦ãã ã•ã„" "Username" 0
 ;Uname = inputstr
 
-;getpassword ¨ inputstr 
-;passwordbox "ƒƒOƒCƒ“ƒpƒXƒ[ƒh‚ğ“ü—Í‚µ‚Ä‚­‚¾‚³‚¢" "Password" 0
+;getpassword â†’ inputstr 
+;passwordbox "ãƒ­ã‚°ã‚¤ãƒ³ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ã‚’å…¥åŠ›ã—ã¦ãã ã•ã„" "Password" 0
 ;Passwd = inputstr
 
-;getpassword ¨ inputstr 
-;passwordbox "EnableƒpƒXƒ[ƒh‚ğ“ü—Í‚µ‚Ä‚­‚¾‚³‚¢" "Enable" 0
+;getpassword â†’ inputstr 
+;passwordbox "Enableãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ã‚’å…¥åŠ›ã—ã¦ãã ã•ã„" "Enable" 0
 ;Enable = inputstr
 
 
-;ƒtƒ@ƒCƒ‹ƒI[ƒvƒ“
-;<append flag> ‚ª0‚Ìê‡Aƒtƒ@ƒCƒ‹ƒ|ƒCƒ“ƒ^‚ÌˆÊ’u‚Íƒtƒ@ƒCƒ‹‚Ìn‚ß‚ÉƒZƒbƒg‚³‚ê‚éB
-;<append flag> ‚ª0ˆÈŠO‚Ìê‡Aƒtƒ@ƒCƒ‹ƒ|ƒCƒ“ƒ^‚Íƒtƒ@ƒCƒ‹‚ÌÅŒã‚ÉƒZƒbƒg‚³‚ê‚éB 
+;ãƒ•ã‚¡ã‚¤ãƒ«ã‚ªãƒ¼ãƒ—ãƒ³
+;<append flag> ãŒ0ã®å ´åˆã€ãƒ•ã‚¡ã‚¤ãƒ«ãƒã‚¤ãƒ³ã‚¿ã®ä½ç½®ã¯ãƒ•ã‚¡ã‚¤ãƒ«ã®å§‹ã‚ã«ã‚»ãƒƒãƒˆã•ã‚Œã‚‹ã€‚
+;<append flag> ãŒ0ä»¥å¤–ã®å ´åˆã€ãƒ•ã‚¡ã‚¤ãƒ«ãƒã‚¤ãƒ³ã‚¿ã¯ãƒ•ã‚¡ã‚¤ãƒ«ã®æœ€å¾Œã«ã‚»ãƒƒãƒˆã•ã‚Œã‚‹ã€‚ 
 fileopen FHost HostList 0
 fileopen FComm CommList 0
 
-;ƒtƒ@ƒCƒ‹ƒ|ƒCƒ“ƒ^‚ğƒtƒ@ƒCƒ‹‚Ìæ“ª‚ÉˆÚ“®
+;ãƒ•ã‚¡ã‚¤ãƒ«ãƒã‚¤ãƒ³ã‚¿ã‚’ãƒ•ã‚¡ã‚¤ãƒ«ã®å…ˆé ­ã«ç§»å‹•
 fileseek FHost 0 0
 R = 0
 while R = 0
-	;ƒtƒ@ƒCƒ‹‚©‚ç1s“Ç‚Ş
+	;ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰1è¡Œèª­ã‚€
 	filereadln FHost Host1
-	;ÅIs‚È‚ç result = 1
+	;æœ€çµ‚è¡Œãªã‚‰ result = 1
 	R = result
 ;	messagebox R "R" 0
 
 	
 	;statusbox
 	STRING = Host1
-	;ƒ{ƒbƒNƒX‚ÌˆÊ’u
+	;ãƒœãƒƒã‚¯ã‚¹ã®ä½ç½®
 	setdlgpos 70 5
 	statusbox Host1 MacroName
 	
@@ -190,7 +190,7 @@ while R = 0
 	HostEnpw = STRING1
 ;	messagebox HostEnpw "HostEnpw" 0
 
-	 ;HostAddr‚É"."‚ª‚ ‚ê‚ÎÚ‘±‚·‚éB
+	 ;HostAddrã«"."ãŒã‚ã‚Œã°æ¥ç¶šã™ã‚‹ã€‚
 	 strscan HostAddr '.'
 	 if result > 0 then
 	 
@@ -204,33 +204,33 @@ while R = 0
 		connect ConOpt
 		;messagebox result Host1		
 
-		;Ú‘±‚ª‚³‚ê‚é‚Ü‚Å‘Ò‚Â
+		;æ¥ç¶šãŒã•ã‚Œã‚‹ã¾ã§å¾…ã¤
 		;connecting = 0
 		;do
 		;	mpause 100
 		;	testlink
 		;	connecting = connecting + 100
-		;	;5•b‚ÅBreak
+		;	;5ç§’ã§Break
 		;	if connecting < 5000 break
 		;loop while result = 2
 
-		;Tera Term ‚Ö‚ÌƒŠƒ“ƒN‚¨‚æ‚ÑƒzƒXƒg‚Ö‚ÌÚ‘±—¼•û‚Æ‚à‚³‚ê‚Ä‚¢‚éB
+		;Tera Term ã¸ã®ãƒªãƒ³ã‚¯ãŠã‚ˆã³ãƒ›ã‚¹ãƒˆã¸ã®æ¥ç¶šä¸¡æ–¹ã¨ã‚‚ã•ã‚Œã¦ã„ã‚‹ã€‚
 		
-		;‡@Tera Term ‚ÆƒŠƒ“ƒN‚³‚ê‚Ä‚¢‚È‚¢ê‡ 
+		;â‘ Tera Term ã¨ãƒªãƒ³ã‚¯ã•ã‚Œã¦ã„ãªã„å ´åˆ 
 		if result = 0 then
 			;messagebox result Host1
 			Success = "Timeout"
 			
 			
-		;‡AƒzƒXƒg‚Ö‚ÌÚ‘±‚Í‚³‚ê‚Ä‚¢‚È‚¢‚ªATera Term ‚Ö‚ÌƒŠƒ“ƒN‚Í‚³‚ê‚Ä‚¢‚éê‡
+		;â‘¡ãƒ›ã‚¹ãƒˆã¸ã®æ¥ç¶šã¯ã•ã‚Œã¦ã„ãªã„ãŒã€Tera Term ã¸ã®ãƒªãƒ³ã‚¯ã¯ã•ã‚Œã¦ã„ã‚‹å ´åˆ
 		elseif result = 1 then
 			;messagebox Host1 result
 			Success = "Timeout"
 	
-		;‡BTera Term ‚Ö‚ÌƒŠƒ“ƒN‚¨‚æ‚ÑƒzƒXƒg‚Ö‚ÌÚ‘±—¼•û‚Æ‚à‚³‚ê‚Ä‚¢‚éê‡
+		;â‘¢Tera Term ã¸ã®ãƒªãƒ³ã‚¯ãŠã‚ˆã³ãƒ›ã‚¹ãƒˆã¸ã®æ¥ç¶šä¸¡æ–¹ã¨ã‚‚ã•ã‚Œã¦ã„ã‚‹å ´åˆ
 		elseif result = 2 then	
 		
-			;•Ï”“n‚µ ¨ Logging
+			;å¤‰æ•°æ¸¡ã— â†’ Logging
 			Logdir = Logdir
 			Loghostname = LogPrefix
 			strconcat Loghostname Hostname
@@ -243,13 +243,13 @@ while R = 0
 			
 				call ExecComm
 
-				;‚à‚µ MACRO ‚ª Tera Term ‚ÉƒŠƒ“ƒN‚³‚ê‚Ä‚¢‚ê‚Îexit
+				;ã‚‚ã— MACRO ãŒ Tera Term ã«ãƒªãƒ³ã‚¯ã•ã‚Œã¦ã„ã‚Œã°exit
 				testlink
 				if result = 2 then
 					mpause 100
 					sendln "exit"
 				endif
-				;Ú‘±‚ªØ‚ê‚é‚Ü‚Å‘Ò‚Â
+				;æ¥ç¶šãŒåˆ‡ã‚Œã‚‹ã¾ã§å¾…ã¤
 				do
 					mpause 100
 					testlink
@@ -268,7 +268,7 @@ while R = 0
 
 	endif
 	
-	;•Ï”“n‚µ ¨ WriteSumm
+	;å¤‰æ•°æ¸¡ã— â†’ WriteSumm
 	getdate Wrdatetime '%Y%m%d %H:%M:%S'
 	int2str Str_i i
 	WrResult = Str_i
@@ -291,7 +291,7 @@ fileclose FHost
 fileclose FComm
 fileclose FSumm 
 
-;ƒ{ƒbƒNƒX‚ÌˆÊ’u
+;ãƒœãƒƒã‚¯ã‚¹ã®ä½ç½®
 setdlgpos 200 200	
 
 messagebox "DONE!" MacroName
@@ -310,30 +310,30 @@ end
 ;strlen N/A
 ;strscan N/A
 
- ;•¶š—ñ‚Ì’·‚³¨result
+ ;æ–‡å­—åˆ—ã®é•·ã•â†’result
  strlen STRING
  LEN_ALL = result
 
- ;•¶š—ñ‚©‚çÅ‰‚ÌƒJƒ“ƒ}‚ÌˆÊ’u
+ ;æ–‡å­—åˆ—ã‹ã‚‰æœ€åˆã®ã‚«ãƒ³ãƒã®ä½ç½®
  strscan STRING ','
  
- ;ƒJƒ“ƒ}‚ªŒ©‚Â‚©‚ç‚È‚¢ê‡‚Í‹æØ‚ç‚È‚¢
+ ;ã‚«ãƒ³ãƒãŒè¦‹ã¤ã‹ã‚‰ãªã„å ´åˆã¯åŒºåˆ‡ã‚‰ãªã„
  if result = 0 then
 	 STRING1 = STRING
 	 else
-	 ;ƒJƒ“ƒ}‹æØ‚è1ƒ[ƒh–Ú‚ÌÅŒã‚ÌˆÊ’u
+	 ;ã‚«ãƒ³ãƒåŒºåˆ‡ã‚Š1ãƒ¯ãƒ¼ãƒ‰ç›®ã®æœ€å¾Œã®ä½ç½®
 	 LEN_WORD  = result - 1
 
-	 ;ƒJƒ“ƒ}‹æØ‚è2ƒ[ƒh–ÚˆÈ~‚Ì’·‚³
+	 ;ã‚«ãƒ³ãƒåŒºåˆ‡ã‚Š2ãƒ¯ãƒ¼ãƒ‰ç›®ä»¥é™ã®é•·ã•
 	 LEN_REST = LEN_ALL - result
 
-	 ;ƒJƒ“ƒ}‹æØ‚è2ƒ[ƒh–ÚˆÈ~‚ÌÅ‰‚ÌˆÊ’u
+	 ;ã‚«ãƒ³ãƒåŒºåˆ‡ã‚Š2ãƒ¯ãƒ¼ãƒ‰ç›®ä»¥é™ã®æœ€åˆã®ä½ç½®
 	 HEAD_POS = result + 1
 
-	 ;ƒJƒ“ƒ}‹æØ‚è1ƒ[ƒh–Ú‚ğ•Ï”"WORD"‚ÉŠi”[
+	 ;ã‚«ãƒ³ãƒåŒºåˆ‡ã‚Š1ãƒ¯ãƒ¼ãƒ‰ç›®ã‚’å¤‰æ•°"WORD"ã«æ ¼ç´
 	 strcopy STRING 1 LEN_WORD STRING1
 
-	 ;ƒJƒ“ƒ}‹æØ‚è2ƒ[ƒh–ÚˆÈ~‚ğ•Ï”"STRING"‚ÉŠi”[
+	 ;ã‚«ãƒ³ãƒåŒºåˆ‡ã‚Š2ãƒ¯ãƒ¼ãƒ‰ç›®ä»¥é™ã‚’å¤‰æ•°"STRING"ã«æ ¼ç´
 	 strcopy STRING HEAD_POS LEN_REST STRING
  endif
 return
@@ -360,15 +360,15 @@ strconcat Logfile '.log'
 ;messagebox Logfile "Logfile" 0
 
 ;logopen <filename> <binary flag> <append flag> [<plain text flag> [<timestamp flag> [<hide dialog flag>]]]
-;<binary flag> ‚Ì’l‚ª0‚Ì‚Æ‚«AóM‚µ‚½Š¿šA‰üs•¶š‚Í•ÏŠ·‚³‚ê‚Äƒtƒ@ƒCƒ‹‚É‘‚«‚Ü‚êAƒGƒXƒP[ƒvƒV[ƒPƒ“ƒX‚Í‘‚«‚Ü‚ê‚È‚¢B
-;<binary flag> ‚Ì’l‚ª0ˆÈŠO‚Ì‚Æ‚«AóM‚µ‚½•¶š‚ğ‚·‚×‚Ä‚»‚Ì‚Ü‚Üƒtƒ@ƒCƒ‹‚É‘‚«‚ŞB 
-;<append flag> ‚Ì’l‚ª0ˆÈŠO‚ÅAƒtƒ@ƒCƒ‹ <filename> ‚ª‚·‚Å‚É‘¶İ‚·‚éê‡A‚»‚Ìƒtƒ@ƒCƒ‹‚É’Ç‰Á‚µ‚Ä‘‚«‚ŞB
-;<append flag> ‚Ì’l‚ª0‚ÅAƒtƒ@ƒCƒ‹ <filename> ‚ª‚·‚Å‚É‘¶İ‚·‚éê‡A‚»‚Ìƒtƒ@ƒCƒ‹‚Íã‘‚«‚³‚ê‚éB 
-;<plain text flag> ‚ª 0 ˆÈŠO‚Ìê‡AASCII ”ñ•\¦•¶š‚ğƒƒO‚É‘‚«‚Ü‚È‚¢B
-;<timestamp flag> ‚ª 0 ˆÈŠO‚Ìê‡AƒƒO‚Ìs“ª‚É‚ğ’Ç‰Á‚·‚éB
-;‚½‚¾‚µA<binary flag> ‚ª 0 ˆÈŠO‚Ìê‡A<plain text flag>, <timestamp flag> ‚Í—¼•û‚Æ‚à–³‹‚³‚ê‚éBƒoƒCƒiƒŠƒƒO‚ÍƒƒOÄ¶‚É—˜—p‰Â”\B (ƒo[ƒWƒ‡ƒ“ 4.61ˆÈ~) 
-;<hide dialog flag> ‚ª 0 ˆÈŠO‚Ìê‡AƒƒO“]‘—‚Ìƒ_ƒCƒAƒƒO‚ğ•\¦‚µ‚È‚¢B 
-;ƒƒOƒtƒ@ƒCƒ‹‚ğŠJ‚¯‚½ê‡Aresult ‚É 0 ‚ªŠi”[‚³‚ê‚éBŠJ‚¯‚È‚©‚Á‚½ê‡‚Í 1 ‚ªŠi”[‚³‚ê‚éB(ƒo[ƒWƒ‡ƒ“ 4.62 ˆÈ~) 
+;<binary flag> ã®å€¤ãŒ0ã®ã¨ãã€å—ä¿¡ã—ãŸæ¼¢å­—ã€æ”¹è¡Œæ–‡å­—ã¯å¤‰æ›ã•ã‚Œã¦ãƒ•ã‚¡ã‚¤ãƒ«ã«æ›¸ãè¾¼ã¾ã‚Œã€ã‚¨ã‚¹ã‚±ãƒ¼ãƒ—ã‚·ãƒ¼ã‚±ãƒ³ã‚¹ã¯æ›¸ãè¾¼ã¾ã‚Œãªã„ã€‚
+;<binary flag> ã®å€¤ãŒ0ä»¥å¤–ã®ã¨ãã€å—ä¿¡ã—ãŸæ–‡å­—ã‚’ã™ã¹ã¦ãã®ã¾ã¾ãƒ•ã‚¡ã‚¤ãƒ«ã«æ›¸ãè¾¼ã‚€ã€‚ 
+;<append flag> ã®å€¤ãŒ0ä»¥å¤–ã§ã€ãƒ•ã‚¡ã‚¤ãƒ« <filename> ãŒã™ã§ã«å­˜åœ¨ã™ã‚‹å ´åˆã€ãã®ãƒ•ã‚¡ã‚¤ãƒ«ã«è¿½åŠ ã—ã¦æ›¸ãè¾¼ã‚€ã€‚
+;<append flag> ã®å€¤ãŒ0ã§ã€ãƒ•ã‚¡ã‚¤ãƒ« <filename> ãŒã™ã§ã«å­˜åœ¨ã™ã‚‹å ´åˆã€ãã®ãƒ•ã‚¡ã‚¤ãƒ«ã¯ä¸Šæ›¸ãã•ã‚Œã‚‹ã€‚ 
+;<plain text flag> ãŒ 0 ä»¥å¤–ã®å ´åˆã€ASCII éè¡¨ç¤ºæ–‡å­—ã‚’ãƒ­ã‚°ã«æ›¸ãè¾¼ã¾ãªã„ã€‚
+;<timestamp flag> ãŒ 0 ä»¥å¤–ã®å ´åˆã€ãƒ­ã‚°ã®è¡Œé ­ã«æ™‚åˆ»ã‚’è¿½åŠ ã™ã‚‹ã€‚
+;ãŸã ã—ã€<binary flag> ãŒ 0 ä»¥å¤–ã®å ´åˆã€<plain text flag>, <timestamp flag> ã¯ä¸¡æ–¹ã¨ã‚‚ç„¡è¦–ã•ã‚Œã‚‹ã€‚ãƒã‚¤ãƒŠãƒªãƒ­ã‚°ã¯ãƒ­ã‚°å†ç”Ÿã«åˆ©ç”¨å¯èƒ½ã€‚ (ãƒãƒ¼ã‚¸ãƒ§ãƒ³ 4.61ä»¥é™) 
+;<hide dialog flag> ãŒ 0 ä»¥å¤–ã®å ´åˆã€ãƒ­ã‚°è»¢é€ã®ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã‚’è¡¨ç¤ºã—ãªã„ã€‚ 
+;ãƒ­ã‚°ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ã‘ãŸå ´åˆã€result ã« 0 ãŒæ ¼ç´ã•ã‚Œã‚‹ã€‚é–‹ã‘ãªã‹ã£ãŸå ´åˆã¯ 1 ãŒæ ¼ç´ã•ã‚Œã‚‹ã€‚(ãƒãƒ¼ã‚¸ãƒ§ãƒ³ 4.62 ä»¥é™) 
 logopen Logfile 0 1 0
 
 return
@@ -415,7 +415,7 @@ if result = 1 then
       goto CLOSE_TT
 endif
 
-;ƒzƒXƒg–¼”äŠr
+;ãƒ›ã‚¹ãƒˆåæ¯”è¼ƒ
 sendln '!!!compare'
 wait EnPrompt
  if result = 0  goto CLOSE_TT
@@ -423,7 +423,7 @@ sendkcode 28 2
 waitln EnPrompt
 strmatch inputstr Hostname
 if result=0 then
-    yesnobox "ƒvƒƒ“ƒvƒg‚ÆƒzƒXƒg–¼‚ªˆê’v‚µ‚Ü‚¹‚ñ‚Å‚µ‚½B‘±‚¯‚Ü‚·‚©H" Hostname
+    yesnobox "ãƒ—ãƒ­ãƒ³ãƒ—ãƒˆã¨ãƒ›ã‚¹ãƒˆåãŒä¸€è‡´ã—ã¾ã›ã‚“ã§ã—ãŸã€‚ç¶šã‘ã¾ã™ã‹ï¼Ÿ" Hostname
     if result = 0 goto CLOSE_TT
 endif
 
@@ -470,15 +470,15 @@ waitln EnPrompt
 FullPrompt = inputstr
 
 setsync 1
-;ƒtƒ@ƒCƒ‹ƒ|ƒCƒ“ƒ^‚ğƒtƒ@ƒCƒ‹‚Ìæ“ª‚ÉˆÚ“®
+;ãƒ•ã‚¡ã‚¤ãƒ«ãƒã‚¤ãƒ³ã‚¿ã‚’ãƒ•ã‚¡ã‚¤ãƒ«ã®å…ˆé ­ã«ç§»å‹•
 fileseek FComm 0 0
 S = 0
 while S = 0
-	;ƒtƒ@ƒCƒ‹‚©‚ç1s“Ç‚Ş
+	;ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰1è¡Œèª­ã‚€
 	filereadln FComm VAL
-	;ÅIs‚È‚ç result = 1
+	;æœ€çµ‚è¡Œãªã‚‰ result = 1
 	S = result
-	;“Ç‚İ‚ñ‚¾ƒRƒ}ƒ“ƒh‚ğÀs
+	;èª­ã¿è¾¼ã‚“ã ã‚³ãƒãƒ³ãƒ‰ã‚’å®Ÿè¡Œ
 	call ClearBuff
 	mpause 100
 	sendkcode 28 1
@@ -499,7 +499,7 @@ return
 :ClearBuff
 ;(in x return x)
 
- ;óMƒoƒbƒtƒ@‚ª‹ó‚É‚È‚é‚Ü‚Åwaitln‚·‚é
+ ;å—ä¿¡ãƒãƒƒãƒ•ã‚¡ãŒç©ºã«ãªã‚‹ã¾ã§waitlnã™ã‚‹
  
 timeout = 0
 mtimeout = 500
