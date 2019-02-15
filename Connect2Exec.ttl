@@ -1,0 +1,525 @@
+
+;------------------------------------------
+;                Ver
+;        Ver 4.66 のヘルプより
+;------------------------------------------
+;setsync	N/A
+;until	バージョン4.56以降 (使用しない)
+;wile N/A
+;fileopen	N/A
+;fileread	バージョン4.48以降 （使用しない）
+;yesnobox	N/A
+;if	N/A
+;flushrecv	N/A
+;fileseek	N/A
+;filereadln	N/A
+;wait	N/A
+;fileclose	N/A
+;unlink N/A
+;int2str N/A
+;mpause N/A
+;flushrecv N/A
+;------------------------------------------
+;------------------------------------------
+;              Dim
+;------------------------------------------
+;MAIN; Cur1 Default_timeout PasswordPrompt LoginPrompt LoginPrompt2 UserPrompt EnPrompt 
+;	ERR HostList CommList FHost FComm R Host1 Hostname HostAddr
+;	Logdir Gdatetime ConOpt Success Passwd Uname Enable EXECMD LogdirPref CurDir
+;	HostPort HostUname HostPw HostEnpw LogPrefix
+;	i Str_i
+;	R SummaryPrefix Summary Wrdatetime FSumm connecting
+;SpritSTRING; STRING LEN_WORD LEN_REST HEAD_POS STRING1
+;Logging; Logfile Loghostname Logdatetime
+;WriteSumm: WrResult
+;ExecComm; S VAL FullPrompt
+;------------------------------------------
+;------------------------------------------
+;             基本設定
+;------------------------------------------
+MacroName = "Connect2Exec"
+
+getdate Gdatetime '_%Y%m%d-%H%M%S'
+getdate Gdate '_%Y%m%d'
+
+;システム変数 Timeout
+Default_timeout = 600
+timeout = Default_timeout
+
+;プロンプト定義
+LoginPrompt = 'Username:'
+LoginPrompt2 = 'login:'
+PasswordPrompt = 'Password:'
+UserPrompt = '>'
+EnPrompt = '#'
+ERR = "%"
+
+;マクロがあるディレクトリ
+getdir CurDir
+
+;ログを保存するディレクトリプレフィクス
+LogdirPref = "log"
+
+;ホスト一覧
+HostList = "HostList.csv"
+
+;Command
+CommList = "CommList.txt"
+
+;Summary(Prefix)
+SummaryPrefix = "_Summary"
+
+;TERATERM.INI
+TtIni = "teraterm.ini"
+
+
+
+;------------------------------------------
+;------------------------------------------
+;                 MAIN
+;------------------------------------------
+;------------------------------------------
+i = 1
+
+;yesnobox "Connect2Execを実行しますか？" MacroName
+;if result = 0 end
+
+;inputbox → logprefix 
+inputbox "Log Prefixを入力してください。「_」をつけたほうがよいかも。" "LogPrefix" 0
+LogPrefix = inputstr
+
+
+;ホスト一覧
+Cur1 = HostList
+HostList = CurDir
+strconcat HostList "\"
+strconcat HostList Cur1
+;messagebox HostList "HostList" 0
+
+;Command
+Cur1 = CommList
+CommList = CurDir
+strconcat CommList "\"
+strconcat CommList Cur1
+;messagebox CommList "CommList" 0
+
+;ロギングフォルダ
+Logdir = CurDir
+strconcat Logdir '\'
+strconcat Logdir LogPrefix
+strconcat Logdir LogdirPref
+strconcat Logdir Gdatetime
+;フォルダ作成
+EXECMD = 'cmd /c md '
+strconcat EXECMD Logdir
+exec EXECMD
+strconcat Logdir "\"
+
+;Summaryファイル
+Summary = Logdir
+strconcat Summary LogPrefix
+strconcat Summary SummaryPrefix
+strconcat Summary Gdatetime
+strconcat Summary ".csv"
+pause 1
+;messagebox Summary "Summary" 0
+filecreate FSumm Summary
+WrResult = "No.,Host,Address,Result,Date-Time"
+strconcat WrResult #13#10
+call WriteSumm
+
+
+;inputbox → inputstr 
+;inputbox "ユーザ名を入力してください" "Username" 0
+;Uname = inputstr
+
+;getpassword → inputstr 
+;passwordbox "ログインパスワードを入力してください" "Password" 0
+;Passwd = inputstr
+
+;getpassword → inputstr 
+;passwordbox "Enableパスワードを入力してください" "Enable" 0
+;Enable = inputstr
+
+
+;ファイルオープン
+;<append flag> が0の場合、ファイルポインタの位置はファイルの始めにセットされる。
+;<append flag> が0以外の場合、ファイルポインタはファイルの最後にセットされる。 
+fileopen FHost HostList 0
+fileopen FComm CommList 0
+
+;ファイルポインタをファイルの先頭に移動
+fileseek FHost 0 0
+R = 0
+while R = 0
+	;ファイルから1行読む
+	filereadln FHost Host1
+	;最終行なら result = 1
+	R = result
+;	messagebox R "R" 0
+
+	
+	;statusbox
+	STRING = Host1
+	;ボックスの位置
+	setdlgpos 70 5
+	statusbox Host1 MacroName
+	
+
+	call SpritSTRING
+	Hostname = STRING1
+;	messagebox Hostname "Hostname" 0
+
+	call SpritSTRING
+	HostAddr = STRING1
+;	messagebox HostAddr "HostAddr" 0
+
+;	call SpritSTRING
+;	HostPort = STRING1
+;	messagebox HostPort "HostPort" 0
+
+	call SpritSTRING
+	HostUname = STRING1
+;	messagebox HostUname "HostUname" 0
+
+	call SpritSTRING
+	HostPw = STRING1
+;	messagebox HostPw "HostPw" 0
+
+	call SpritSTRING
+	HostEnpw = STRING1
+;	messagebox HostEnpw "HostEnpw" 0
+
+	 ;HostAddrに"."があれば接続する。
+	 strscan HostAddr '.'
+	 if result > 0 then
+	 
+		;Connect
+		ConOpt = HostAddr
+		strconcat ConOpt " /nossh /T=1  /timeout=5  /F="
+		strconcat ConOpt CurDir
+		strconcat ConOpt "\"
+		strconcat ConOpt TtIni
+		;messagebox ConOpt ConOpt
+		connect ConOpt
+		;messagebox result Host1		
+
+		;接続がされるまで待つ
+		;connecting = 0
+		;do
+		;	mpause 100
+		;	testlink
+		;	connecting = connecting + 100
+		;	;5秒でBreak
+		;	if connecting < 5000 break
+		;loop while result = 2
+
+		;Tera Term へのリンクおよびホストへの接続両方ともされている。
+		
+		;①Tera Term とリンクされていない場合 
+		if result = 0 then
+			;messagebox result Host1
+			Success = "Timeout"
+			
+			
+		;②ホストへの接続はされていないが、Tera Term へのリンクはされている場合
+		elseif result = 1 then
+			;messagebox Host1 result
+			Success = "Timeout"
+	
+		;③Tera Term へのリンクおよびホストへの接続両方ともされている場合
+		elseif result = 2 then	
+		
+			;変数渡し → Logging
+			Logdir = Logdir
+			Loghostname = LogPrefix
+			strconcat Loghostname Hostname
+			call Logging
+			call Login
+			
+			; ExecComm
+			testlink
+			if result = 2 then
+			
+				call ExecComm
+
+				;もし MACRO が Tera Term にリンクされていればexit
+				testlink
+				if result = 2 then
+					mpause 100
+					sendln "exit"
+				endif
+				;接続が切れるまで待つ
+				do
+					mpause 100
+					testlink
+				loop while result = 2
+
+				Success = "Success"
+				
+				else
+					Success = "LoginFail"
+			endif
+			
+		endif
+	else
+	
+		Success = "N/A"
+
+	endif
+	
+	;変数渡し → WriteSumm
+	getdate Wrdatetime '%Y%m%d %H:%M:%S'
+	int2str Str_i i
+	WrResult = Str_i
+	strconcat WrResult ","
+	strconcat WrResult Hostname
+	strconcat WrResult ","
+	strconcat WrResult HostAddr
+	strconcat WrResult ","
+	strconcat WrResult Success
+	strconcat WrResult ","
+	strconcat WrResult Wrdatetime
+	strconcat WrResult #13#10
+	;messagebox WrResult "WrResult" 0
+	call WriteSumm
+	i = i + 1
+
+endwhile
+
+fileclose FHost
+fileclose FComm
+fileclose FSumm 
+
+;ボックスの位置
+setdlgpos 200 200	
+
+messagebox "DONE!" MacroName
+
+end
+;----------------------------------------------------
+;----------------------------------------------------
+;                     SUB
+;----------------------------------------------------
+;----------------------------------------------------
+:SpritSTRING
+;(in STRING return STRING1 STRING)
+
+;-Ver-
+;strcopy N/A
+;strlen N/A
+;strscan N/A
+
+ ;文字列の長さ→result
+ strlen STRING
+ LEN_ALL = result
+
+ ;文字列から最初のカンマの位置
+ strscan STRING ','
+ 
+ ;カンマが見つからない場合は区切らない
+ if result = 0 then
+	 STRING1 = STRING
+	 else
+	 ;カンマ区切り1ワード目の最後の位置
+	 LEN_WORD  = result - 1
+
+	 ;カンマ区切り2ワード目以降の長さ
+	 LEN_REST = LEN_ALL - result
+
+	 ;カンマ区切り2ワード目以降の最初の位置
+	 HEAD_POS = result + 1
+
+	 ;カンマ区切り1ワード目を変数"WORD"に格納
+	 strcopy STRING 1 LEN_WORD STRING1
+
+	 ;カンマ区切り2ワード目以降を変数"STRING"に格納
+	 strcopy STRING HEAD_POS LEN_REST STRING
+ endif
+return
+
+;---------------------------------------------------------------
+;---------------------------------------------------------------
+:Logging
+;(in Logdir,Loghostname return Nothing)
+
+;-Ver- 
+;logopen N/A
+;strconcat N/A
+;getdate N/A
+
+
+Logfile = Logdir
+;strconcat Logfile username
+;strconcat Logfile '@'
+strconcat Logfile Loghostname
+getdate Logdatetime '_%Y%m%d-%H%M%S'
+strconcat Logfile Logdatetime
+strconcat Logfile '.log'
+
+;messagebox Logfile "Logfile" 0
+
+;logopen <filename> <binary flag> <append flag> [<plain text flag> [<timestamp flag> [<hide dialog flag>]]]
+;<binary flag> の値が0のとき、受信した漢字、改行文字は変換されてファイルに書き込まれ、エスケープシーケンスは書き込まれない。
+;<binary flag> の値が0以外のとき、受信した文字をすべてそのままファイルに書き込む。 
+;<append flag> の値が0以外で、ファイル <filename> がすでに存在する場合、そのファイルに追加して書き込む。
+;<append flag> の値が0で、ファイル <filename> がすでに存在する場合、そのファイルは上書きされる。 
+;<plain text flag> が 0 以外の場合、ASCII 非表示文字をログに書き込まない。
+;<timestamp flag> が 0 以外の場合、ログの行頭に時刻を追加する。
+;ただし、<binary flag> が 0 以外の場合、<plain text flag>, <timestamp flag> は両方とも無視される。バイナリログはログ再生に利用可能。 (バージョン 4.61以降) 
+;<hide dialog flag> が 0 以外の場合、ログ転送のダイアログを表示しない。 
+;ログファイルを開けた場合、result に 0 が格納される。開けなかった場合は 1 が格納される。(バージョン 4.62 以降) 
+logopen Logfile 0 1 0
+
+return
+;---------------------------------------------------------------
+;---------------------------------------------------------------
+:Login
+;(Global)
+
+mpause 200
+
+timeout = 1
+
+setsync 1
+
+;# Console Prompt
+;wait "Press RETURN"
+call ClearBuff
+ sendln ''
+
+timeout = 5
+
+;# User Prompt / aaa or Nexus
+wait LoginPrompt LoginPrompt2
+ if result = 0 goto CLOSE_TT
+ sendln HostUname
+
+;# Password Prompt
+wait PasswordPrompt
+ if result = 0 goto CLOSE_TT
+ sendln HostPw
+
+call ClearBuff
+
+;# Enable
+sendln '!!!enable'
+wait UserPrompt EnPrompt
+if result = 1 then
+  sendln 'enable'
+  wait PasswordPrompt
+  sendln HostEnpw
+  elseif result = 2 then
+    sendln '!enabled'
+  else
+      goto CLOSE_TT
+endif
+
+;ホスト名比較
+sendln '!!!compare'
+wait EnPrompt
+ if result = 0  goto CLOSE_TT
+sendkcode 28 2
+waitln EnPrompt
+strmatch inputstr Hostname
+if result=0 then
+    yesnobox "プロンプトとホスト名が一致しませんでした。続けますか？" Hostname
+    if result = 0 goto CLOSE_TT
+endif
+
+setsync 0
+
+;FROM CLOSE_TT
+:END_CLOSE_TT
+
+timeout = Default_timeout
+
+return
+
+;---------------------------
+;FROM Login
+:CLOSE_TT
+;messagebox "CLOSE_TT" "CLOSE_TT" 0
+
+closett
+;disconnect
+;unlink
+
+goto END_CLOSE_TT
+
+;---------------------------------------------------------------
+;---------------------------------------------------------------
+:WriteSumm
+;(in WrResult FSumm return Nothing)
+
+ ;comment
+;messagebox Success Success 0
+filewrite FSumm WrResult
+
+return
+
+;---------------------------------------------------------------
+;---------------------------------------------------------------
+:ExecComm
+;(Global)
+
+timeout = 20
+
+sendkcode 28 2
+waitln EnPrompt
+FullPrompt = inputstr
+
+setsync 1
+;ファイルポインタをファイルの先頭に移動
+fileseek FComm 0 0
+S = 0
+while S = 0
+	;ファイルから1行読む
+	filereadln FComm VAL
+	;最終行なら result = 1
+	S = result
+	;読み込んだコマンドを実行
+	call ClearBuff
+	mpause 100
+	sendkcode 28 1
+	wait FullPrompt
+	mpause 100
+	sendln VAL
+	wait FullPrompt
+endwhile
+mpause 100
+setsync 0
+
+timeout = Default_timeout
+
+return
+
+;---------------------------------------------------------------
+;---------------------------------------------------------------
+:ClearBuff
+;(in x return x)
+
+ ;受信バッファが空になるまでwaitlnする
+ 
+timeout = 0
+mtimeout = 500
+result = 1
+
+while result 
+ waitln ''
+endwhile
+
+timeout = Default_timeout
+mtimeout = 0
+
+return
+
+
+;---------------------------------------------------------------
+;---------------------------------------------------------------
+:Template
+;(in xxx return xxx)
+
+ ;comment
+
+return

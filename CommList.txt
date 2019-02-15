@@ -1,0 +1,9 @@
+ter len 0
+ter w 0
+show clock
+show run
+#show tech | i #
+show start
+show int
+show logg
+show hist
