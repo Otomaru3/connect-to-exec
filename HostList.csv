@@ -1,4 +1,4 @@
-# hostname, ipaddress:port, username, password, enable
-R1,192.168.100.101,admin,cisco,cisco
-R2,192.168.100.101:23,admin,cisco,cisco
+# hostname, HostType, ipaddress:port, username, password, enable
+R1,RT,192.168.100.101,admin,cisco,cisco
+R2,RT,192.168.100.101:23,admin,cisco,cisco
 
