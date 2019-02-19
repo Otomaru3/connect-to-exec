@@ -4,5 +4,6 @@
 <ol>
   <li>ダウンロード、展開</li>
   <li>Connect2Exec.ttlの文字コードをSJISで保存しなおす。</li>
-<</ol>
+</ol>
+
  
