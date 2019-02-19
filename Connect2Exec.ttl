@@ -96,13 +96,6 @@ strconcat HostList "\"
 strconcat HostList Cur1
 ;messagebox HostList "HostList" 0
 
-;Command
-Cur1 = CommListPrefix
-CommList = CurDir
-strconcat CommList "\"
-strconcat CommList Cur1
-;messagebox CommList "CommList" 0
-
 ;ロギングフォルダ
 Logdir = CurDir
 strconcat Logdir '\'
@@ -193,6 +186,11 @@ while R = 0
 	HostEnpw = STRING1
 ;	messagebox HostEnpw "HostEnpw" 0
 
+	;Command
+	Cur1 = CommListPrefix
+	CommList = CurDir
+	strconcat CommList "\"
+	strconcat CommList Cur1
 	strconcat CommList HostType
 	strconcat CommList ".txt"
 	fileopen FComm CommList 0
