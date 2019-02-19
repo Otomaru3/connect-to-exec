@@ -1,6 +1,6 @@
 # connect-to-exec
 
-<h2>Components</h2>
+<h1>Components</h2>
 <table>
   <tr>
     <th>Compornent</th>
@@ -23,8 +23,9 @@
     <th>HostList.csv</th>
     <td>ホストのリスト</td>
   </tr>
+</table>
 
-<h2>Getting Started</h2>
+<h1>Getting Started</h2>
 <ol>
   <li>ダウンロード、展開</li>
   <li>Connect2Exec.ttlの文字コードをSJISで保存しなおす。</li>
