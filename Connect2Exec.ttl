@@ -24,7 +24,7 @@
 ;              Dim
 ;------------------------------------------
 ;MAIN; Cur1 Default_timeout PasswordPrompt LoginPrompt LoginPrompt2 UserPrompt EnPrompt 
-;	ERR HostList CommList FHost FComm R Host1 Hostname HostAddr
+;	ERR HostList CommListPrefix CommList FHost FComm R Host1 Hostname HostType HostAddr
 ;	Logdir Gdatetime ConOpt Success Passwd Uname Enable EXECMD LogdirPref CurDir
 ;	HostPort HostUname HostPw HostEnpw LogPrefix
 ;	i Str_i
@@ -64,7 +64,7 @@ LogdirPref = "log"
 HostList = "HostList.csv"
 
 ;Command
-CommList = "CommList.txt"
+CommListprefix = "CommList_"
 
 ;Summary(Prefix)
 SummaryPrefix = "_Summary"
@@ -97,7 +97,7 @@ strconcat HostList Cur1
 ;messagebox HostList "HostList" 0
 
 ;Command
-Cur1 = CommList
+Cur1 = CommListPrefix
 CommList = CurDir
 strconcat CommList "\"
 strconcat CommList Cur1
@@ -146,7 +146,6 @@ call WriteSumm
 ;<append flag> が0の場合、ファイルポインタの位置はファイルの始めにセットされる。
 ;<append flag> が0以外の場合、ファイルポインタはファイルの最後にセットされる。 
 fileopen FHost HostList 0
-fileopen FComm CommList 0
 
 ;ファイルポインタをファイルの先頭に移動
 fileseek FHost 0 0
@@ -171,6 +170,10 @@ while R = 0
 ;	messagebox Hostname "Hostname" 0
 
 	call SpritSTRING
+	HostType = STRING1
+;	messagebox HostType "HostType" 0
+
+	call SpritSTRING
 	HostAddr = STRING1
 ;	messagebox HostAddr "HostAddr" 0
 
@@ -189,6 +192,10 @@ while R = 0
 	call SpritSTRING
 	HostEnpw = STRING1
 ;	messagebox HostEnpw "HostEnpw" 0
+
+	strconcat CommList HostType
+	strconcat CommList ".txt"
+	fileopen FComm CommList 0
 
 	 ;HostAddrに"."があれば接続する。
 	 strscan HostAddr '.'
@@ -285,10 +292,11 @@ while R = 0
 	call WriteSumm
 	i = i + 1
 
+	fileclose FComm
+
 endwhile
 
 fileclose FHost
-fileclose FComm
 fileclose FSumm 
 
 ;ボックスの位置
