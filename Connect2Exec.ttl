@@ -256,7 +256,8 @@ while R = 0
 				endif
 				;接続が切れるまで待つ
 				do
-					mpause 100
+					mpause 40
+					mpause 60
 					testlink
 				loop while result = 2
 
@@ -385,14 +386,14 @@ return
 
 mpause 200
 
-timeout = 1
+;timeout = 1
 
 setsync 1
 
 ;# Console Prompt
 ;wait "Press RETURN"
-call ClearBuff
- sendln ''
+;call ClearBuff
+; sendln ''
 
 timeout = 5
 
@@ -425,7 +426,8 @@ endif
 sendln '!!!compare'
 wait EnPrompt
  if result = 0  goto CLOSE_TT
-sendkcode 28 2
+sendln ''
+sendln ''
 waitln EnPrompt
 strmatch inputstr Hostname
 if result=0 then
@@ -511,7 +513,7 @@ timeout = 0
 mtimeout = 500
 result = 1
 
-while result 
+while result = 0
  waitln ''
 endwhile
 
