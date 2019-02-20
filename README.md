@@ -32,7 +32,7 @@
   <li>HostList.txt、CommList_RT.txtを適宜編集。<br>
       HostList.txt の2列目”HostType”は"CommList_<span style="color:red;">RT</span>.txt"の"RT"に対応しています。<br>
       HostList.txtでHostTypeをL3SWと指定した場合はCommList_L3SW.txtの中身が実行されます。</li>
-  <li>Connect2Exec.ttxをttpmacro.exeから実行する</li>
+  <li>Connect2Exec.ttlをttpmacro.exeから実行する</li>
 </ol>
 
  
