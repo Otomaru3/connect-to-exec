@@ -246,25 +246,27 @@ while R = 0
 			testlink
 			if result = 2 then
 			
+				;コマンド実行
 				call ExecComm
 
+				;Logout
 				;もし MACRO が Tera Term にリンクされていればexit
 				testlink
 				if result = 2 then
 					mpause 100
 					sendln "exit"
-				endif
-				;接続が切れるまで待つ
-				do
-					mpause 40
-					mpause 60
-					testlink
-				loop while result = 2
+					;接続が切れるまで待つ
+					do
+						mpause 40
+						mpause 60
+						testlink
+					loop until result = 0
 
-				Success = "Success"
+					Success = "Success"
+				endif
 				
-				else
-					Success = "LoginFail"
+			else
+				Success = "LoginFail"
 			endif
 			
 		endif
