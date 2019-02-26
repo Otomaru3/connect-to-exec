@@ -512,10 +512,10 @@ return
  ;受信バッファが空になるまでwaitlnする
  
 timeout = 0
-mtimeout = 500
+mtimeout = 200
 result = 1
 
-while result = 0
+while result = 1
  waitln ''
 endwhile
 
