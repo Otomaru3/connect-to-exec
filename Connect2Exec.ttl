@@ -516,7 +516,7 @@ mtimeout = 200
 result = 1
 
 while result = 1
- waitln ''
+ wait #13
 endwhile
 
 timeout = Default_timeout
